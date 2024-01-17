@@ -1,44 +1,66 @@
-<div>
-  <button routerLink="/cadastro">Cadastrar novo funcionário</button>
-  <div class="input-box">
-    <label >Procurar:</label>
-    <input type="text" placeholder="Qual registro está buscando?" (input)="search($event)">
+<mat-card>
+  <div class="funcionario-box">
+    <button mat-raised-button color="primary" routerLink="/cadastro">Cadastrar novo funcionário</button>
+    <mat-form-field>
+
+      <div class="input_box">
+        <mat-label>Procurar:</mat-label>
+        <input matInput type="text" placeholder="Qual registro está buscando?" (input)="search($event)">
+      </div>
+
+    </mat-form-field>
   </div>
-</div>
 
 
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th>Nome</th>
-      <th>Sobrenome</th>
-      <th>Departamento</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody *ngFor="let funcionario of funcionarios">
-    <tr>
-      <td>
+  <table mat-table [dataSource]="funcionarios" class="mat-elevation-z8">
+    <ng-container matColumnDef="Situacao">
+      <th mat-header-cell *matHeaderCellDef>Nome</th>
+      <td mat-cell *matCellDef="let funcionario">
+
         <div *ngIf="funcionario.ativo == true; else inativo">
           <img src="assets/images/Ativo.png" alt="" style="height: 20px; width: 20px;">
         </div>
+
         <ng-template #inativo>
           <img src="assets/images/Inativo.png" alt="" style="height: 20px; width: 20px;">
         </ng-template>
+
       </td>
-      <td></td>
-      <td>{{ funcionario.nome }}</td>
-      <td>{{ funcionario.sobrenome }}</td>
-      <td>{{ funcionario.departamento }}</td>
-      <td>
-        <button routerLink="/editar/{{funcionario.id}}">Editar</button>
-        <button>Detalhes</button>
+    </ng-container>
+
+    <ng-container matColumnDef="Nome">
+      <th mat-header-cell *matHeaderCellDef> Nome </th>
+      <td mat-cell *matCellDef="let funcionario"> {{funcionario.nome}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Sobrenome">
+      <th mat-header-cell *matHeaderCellDef> Sobrenome </th>
+      <td mat-cell *matCellDef="let funcionario"> {{funcionario.sobrenome}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Departamento">
+      <th mat-header-cell *matHeaderCellDef> Departamento </th>
+      <td mat-cell *matCellDef="let funcionario"> {{funcionario.departamento}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Ações">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let funcionario">
+
+        <button style="margin: 8px;" mat-raised-button color="accent" routerLink="/editar/{{funcionario.id}}">Editar</button>
+        <button mat-raised-button routerLink="/detalhes/{{funcionario.id}}">Detalhes</button>
+
       </td>
-      <td>
-        <button>Excluir</button>
+    </ng-container>
+
+    <ng-container matColumnDef="Excluir">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let funcionario">
+        <button mat-raised-button color="warn" (click)="openDialog(funcionario.id)">Excluir</button>
       </td>
-    </tr>
-  </tbody>
-</table>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="colunas"></tr>
+    <tr mat-row *matRowDef="let row; columns: colunas;"></tr>
+  </table>
+</mat-card>

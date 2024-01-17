@@ -1,41 +1,47 @@
-<h1>{{btnTitulo}}</h1>
+<mat-card>
+  <h1>{{ btnTitulo }}</h1>
 
-<form [formGroup]="funcionarioform" (ngSubmit)="submit()" #formDit="ngForm">
-  <input type="hidden" formControlName="id">
+  <form [formGroup]="funcionarioform" (ngSubmit)="submit()" #formDit="ngForm">
+    <input type="hidden" formControlName="id" />
 
-  <div class="input_box">
-    <label for="">Nome:</label>
-    <input type="text" formControlName="nome" placeholder="Insira o nome!" required>
-  </div>
+    <div class="input_box">
+      <mat-form-field>
+        <mat-label for="">Nome:</mat-label>
+        <input matInput type="text" formControlName="nome" placeholder="Insira o nome!" required />
+      </mat-form-field>
+    </div>
 
-  <div class="input_box">
-    <label for="">Sobrenome:</label>
-    <input type="text" formControlName="sobrenome" placeholder="Insira o sobrenome!" required>
-  </div>
+    <div class="input_box">
+      <mat-form-field>
+        <mat-label for="">Sobrenome:</mat-label>
+        <input matInput type="text" formControlName="sobrenome" placeholder="Insira o sobrenome!" required />
+      </mat-form-field>
+    </div>
 
-  <div class="input_box">
-    <label for="">Departamento:</label>
-    <select id="departamento" formControlName="departamento" required>
-      <option value="Rh">Rh</option>
-      <option value="Financeiro">Financeiro</option>
-      <option value="Compras">Compras</option>
-      <option value="Atendimento">Atendimento</option>
-      <option value="Zeladoria">Zeladoria </option>
-    </select>
-  </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Departamento</mat-label>
+        <mat-select formControlName="departamento" required>
+          <mat-option *ngFor="let departamento of departamentos" [value]="departamento.value">{{ departamento.viewValue
+            }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
-  <div class="input_box">
-    <label for="">Turno:</label>
-    <select id="turno" formControlName="turno" required>
-      <option value="Manha">Manha</option>
-      <option value="Tarde">Tarde</option>
-      <option value="Noite">Noite</option>
-    </select>
-  </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Turno</mat-label>
+        <mat-select id="turno" formControlName="turno" required>
+          <mat-option *ngFor="let turno of turnos" [value]="turno.value">{{turno.viewValue}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
-
-  <div class="btn-box">
-    <button type="submit" [disabled]="!funcionarioform.valid">{{btnAcao}}</button>
-    <button routerLink="">Voltar</button>
-  </div>
-</form>
+    <div class="btn-box">
+      <button type="submit" [disabled]="!funcionarioform.valid" mat-raised-button color="accent">
+        {{ btnAcao }}
+      </button>
+      <button routerLink="" mat-raised-button>Voltar</button>
+    </div>
+  </form>
+</mat-card>

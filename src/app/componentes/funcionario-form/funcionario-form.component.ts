@@ -2,11 +2,22 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Funcionario } from 'src/app/models/Funcionarios';
 
+interface Departamento {
+  value: string;
+  viewValue: string;
+}
+
+interface Turno {
+  value: string;
+  viewValue: string;
+}
+
 @Component({
   selector: 'app-funcionario-form',
   templateUrl: './funcionario-form.component.html',
   styleUrls: ['./funcionario-form.component.css']
 })
+
 export class FuncionarioFormComponent implements OnInit {
   @Output() onSubmit = new EventEmitter<Funcionario>();
   @Input() btnAcao!: string;
@@ -36,5 +47,20 @@ export class FuncionarioFormComponent implements OnInit {
 
     this.onSubmit.emit(this.funcionarioform.value);
   }
+
+  departamentos: Departamento[] = [
+    { value: 'rh', viewValue: 'Rh' },
+    { value: 'financeiro', viewValue: 'Financeiro' },
+    { value: 'compras', viewValue: 'Compras' },
+    { value: 'atendimento', viewValue: 'Atendimento' },
+    { value: 'zeladoria', viewValue: 'Zeladoria' },
+  ];
+
+  turnos: Turno[] = [
+    { value: 'manha', viewValue: 'Manha' },
+    { value: 'tarde', viewValue: 'Tarde'},
+    { value: 'noite', viewValue: 'Noite'}
+  ]
+  selected = 'option1'
 
 }

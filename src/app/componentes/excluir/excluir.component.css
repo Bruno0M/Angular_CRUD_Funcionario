@@ -1,0 +1,14 @@
+mat-card {
+  height: 300px;
+  margin-top: 3rem;
+}
+
+
+.excluir-box {
+  display: flex;
+}
+
+.mat-mdc-raised-button:not(:disabled) {
+  margin: 3px;
+  font-size: 75.5%;
+}
